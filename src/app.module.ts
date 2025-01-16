@@ -3,9 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FileConversionModule } from './modules/file.conversion.module';
 import { OcrModule } from './modules/ocr.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [FileConversionModule, OcrModule],
+  imports: [
+    ConfigModule.forRoot(),
+    FileConversionModule, 
+    OcrModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
