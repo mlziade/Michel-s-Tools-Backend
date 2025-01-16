@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import * as sharp from 'sharp';
-import { FileConsersionFormat } from './file.conversion.contract.request';
 
 @Injectable()
 export class FileConversionService {
@@ -20,5 +19,9 @@ export class FileConversionService {
             console.log(error)
             throw new BadRequestException('Image conversion failed');
         }
+    }
+
+    static extractFileName(originalname: string): string {
+        return originalname.split('.')[0];
     }
 }

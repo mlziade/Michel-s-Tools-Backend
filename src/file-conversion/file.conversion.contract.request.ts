@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 
-export enum FileConsersionFormat {
+export enum FileConversionFormat {
   jpeg = 'image/jpeg',
   png = 'image/png',
   webp = 'image/webp',
@@ -8,11 +8,11 @@ export enum FileConsersionFormat {
 
 export class FileConversionRequestDto {
   @IsNotEmpty()
-  @IsEnum(FileConsersionFormat)
+  @IsEnum(FileConversionFormat)
   format: string;
 
   @IsNotEmpty()
-  @IsEnum(FileConsersionFormat)
+  @IsEnum(FileConversionFormat)
   outputFormat: string;
 
   @IsOptional()
