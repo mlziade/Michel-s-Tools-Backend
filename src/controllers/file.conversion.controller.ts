@@ -8,9 +8,9 @@ import {
     Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FileConversionService } from './file.conversion.service';
-import { FileConversionFormat } from './file.conversion.contract.request';
-import { FileConversionFileValidationPipe, FileConversionOutputFormatValidationPipe, FileConversionQualityValidationPipe } from './file.conversion.pipes';
+import { FileConversionService } from '../services/file.conversion.service';
+import { FileConversionFormat } from '../contracts/requests/file.conversion.contract.request';
+import { FileConversionFileValidationPipe, FileConversionOutputFormatValidationPipe, FileConversionQualityValidationPipe } from '../pipes/file.conversion.pipes';
 
 @Controller('file-conversion')
 export class FileConversionController {

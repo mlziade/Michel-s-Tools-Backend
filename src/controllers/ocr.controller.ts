@@ -1,6 +1,6 @@
 import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { OcrService } from './ocr.service';
+import { OcrService } from '../services/ocr.service';
 
 @Controller('ocr')
 export class OcrController {

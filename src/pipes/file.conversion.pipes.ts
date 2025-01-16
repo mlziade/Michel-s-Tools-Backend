@@ -1,5 +1,5 @@
 import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
-import { FileConversionFormat } from './file.conversion.contract.request';
+import { FileConversionFormat } from '../contracts/requests/file.conversion.contract.request';
 
 @Injectable()
 export class FileConversionFileValidationPipe implements PipeTransform {

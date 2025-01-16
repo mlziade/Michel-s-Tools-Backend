@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { OcrService } from './ocr.service';
-import { OcrController } from './ocr.controller';
+import { OcrService } from '../services/ocr.service';
+import { OcrController } from '../controllers/ocr.controller';
 
 @Module({
   providers: [OcrService],
