@@ -6,6 +6,7 @@ import { OcrModule } from './modules/ocr.module';
 import { ConfigModule } from '@nestjs/config';
 import { OllamaController } from './controllers/ollama.controller';
 import { OllamaModule } from './modules/ollama.module';
+import { AwsS3Module } from './modules/aws.s3.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { OllamaModule } from './modules/ollama.module';
     FileConversionModule, 
     OcrModule,
     OllamaModule,
+    AwsS3Module
   ],
   controllers: [
     AppController
