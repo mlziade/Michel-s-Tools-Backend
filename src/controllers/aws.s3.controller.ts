@@ -9,7 +9,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 export class AwsS3Controller {
   constructor(private readonly awsS3Service: AwsS3Service) {}
 
-  @Post('upload')
+  /* @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
@@ -17,5 +17,5 @@ export class AwsS3Controller {
   ) {
     const result = await this.awsS3Service.uploadFile(bucketName, file);
     return result;
-  }
+  } */
 }

@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { OllamaController } from './controllers/ollama.controller';
 import { OllamaModule } from './modules/ollama.module';
 import { AwsS3Module } from './modules/aws.s3.module';
+import { GalleryModule } from './modules/gallery.module';
 
 @Module({
   imports: [
@@ -14,10 +15,11 @@ import { AwsS3Module } from './modules/aws.s3.module';
     FileConversionModule, 
     OcrModule,
     OllamaModule,
-    AwsS3Module
+    AwsS3Module,
+    GalleryModule
   ],
   controllers: [
-    AppController
+    AppController,
   ],
   providers: [
     AppService
