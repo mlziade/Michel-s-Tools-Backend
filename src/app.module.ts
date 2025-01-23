@@ -12,6 +12,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { UserController } from './controllers/user.controller';
 import { UserModule } from './modules/user.module';
+import { GalleryImage } from './entities/gallery.image.entity';
+import { GalleryThumbnail } from './entities/thumbnail.entity';
 
 @Module({
   imports: [
@@ -24,7 +26,9 @@ import { UserModule } from './modules/user.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       entities: [
-        User
+        User,
+        GalleryImage,
+        GalleryThumbnail,
       ],
       synchronize: true,
     }),
