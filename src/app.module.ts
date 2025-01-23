@@ -8,9 +8,16 @@ import { OllamaController } from './controllers/ollama.controller';
 import { OllamaModule } from './modules/ollama.module';
 import { AwsS3Module } from './modules/aws.s3.module';
 import { GalleryModule } from './modules/gallery.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: '/usr/src/app/database/sqlite.db',
+      entities: [],
+      synchronize: true,
+    }),
     ConfigModule.forRoot(),
     FileConversionModule, 
     OcrModule,
