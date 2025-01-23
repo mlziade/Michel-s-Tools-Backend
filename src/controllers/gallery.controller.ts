@@ -16,7 +16,7 @@ export class GalleryController {
     async uploadImage(
         @UploadedFile(new GalleryUploadValidationPipe()) file: Express.Multer.File,
         @Body() fileInfo: { fileName: string, description?: string },
-    ) {
+    ): Promise<any> {
         if (!fileInfo.fileName) {
             throw new BadRequestException('File name is required');
         }
