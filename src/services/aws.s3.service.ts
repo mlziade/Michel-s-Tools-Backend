@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command, StorageClass } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Buffer } from 'buffer';
 import { AwsS3PresignedUrlResponseDto } from 'src/contracts/response/s3.contract.response';
@@ -18,18 +18,18 @@ export class AwsS3Service {
         });
     }
 
-    async uploadFile(fileFullPath: string, bucketName: string, file: Express.Multer.File | Buffer): Promise<void> {
+    async uploadFile(fileFullPath: string, bucketName: string, file: Express.Multer.File | Buffer, storageClass: StorageClass = 'STANDARD'): Promise<void> {
         const uploadParams = {
             Bucket: bucketName,
             Key: fileFullPath,
-            Body: file instanceof Buffer ? file : new Uint8Array(file.buffer)
+            Body: file instanceof Buffer ? file : new Uint8Array(file.buffer),
+            StorageClass: storageClass ? storageClass : 'STANDARD',
         };
 
         const command = new PutObjectCommand(uploadParams);
         try {
             await this.s3Client.send(command);
         } catch (error) {
-            console.error("🚀 ~ AwsS3Service ~ uploadFile ~ error:", error);
             throw new Error("Error uploading file to S3");
         }
     }
