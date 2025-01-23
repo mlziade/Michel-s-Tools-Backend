@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Backend service using NestJS
+  backend_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Map port 3000 on the host to port 3000 in the container
+    volumes:
+      - sqlite_data:/usr/src/app/database # Persist SQLite data
+    environment:
+      - NODE_ENV=dev # Set environment variable
+    depends_on:
+      - sqlite_database # Ensure the database service is started before the backend
+
+  # SQLite database service
+  sqlite_database:
+    image: alpine
+    command: tail -f /dev/null # Keep the container running
+    volumes:
+      - sqlite_data:/usr/src/app/database # Persist SQLite data
+
+# Define named volumes
+volumes:
+  sqlite_data:
