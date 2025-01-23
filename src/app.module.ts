@@ -9,16 +9,23 @@ import { OllamaModule } from './modules/ollama.module';
 import { AwsS3Module } from './modules/aws.s3.module';
 import { GalleryModule } from './modules/gallery.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: '/usr/src/app/database/sqlite.db',
-      entities: [],
+      type: 'postgres',
+      host: 'db',
+      port: parseInt(process.env.POSTGRES_PORT) || 5432,
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+      entities: [
+        User
+      ],
       synchronize: true,
     }),
-    ConfigModule.forRoot(),
     FileConversionModule, 
     OcrModule,
     OllamaModule,
