@@ -10,6 +10,8 @@ import { AwsS3Module } from './modules/aws.s3.module';
 import { GalleryModule } from './modules/gallery.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { UserController } from './controllers/user.controller';
+import { UserModule } from './modules/user.module';
 
 @Module({
   imports: [
@@ -30,7 +32,8 @@ import { User } from './entities/user.entity';
     OcrModule,
     OllamaModule,
     AwsS3Module,
-    GalleryModule
+    GalleryModule,
+    UserModule,
   ],
   controllers: [
     AppController,
