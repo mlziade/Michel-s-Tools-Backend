@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Put, Delete, UseGuards, Body, Param, Query } from '@nestjs/common';
-import { CreateUserContractRequest, UpdateUserContractRequest } from 'src/contracts/requests/user.contract.request';
-import { QueryUserPaginatedDto } from 'src/contracts/response/user.contract.response';
+import { AuthGuard } from '@nestjs/passport';
+import { CreateUserContractRequest, QueryUserPaginatedDto, UpdateUserContractRequest } from 'src/contracts/requests/user.contract.request';
 import { User } from 'src/entities/user.entity';
 import { ApiKeyGuard } from 'src/guards/apikey.guard';
 import { UserService } from 'src/services/user.service';
 
 @Controller('user')
-@UseGuards(ApiKeyGuard)
+@UseGuards(AuthGuard('jwt'))
 export class UserController {
     constructor(
         private readonly userService: UserService,
@@ -18,6 +18,7 @@ export class UserController {
         return users;
     }
 
+    @Get('paginated')
     async findPaginated(
         @Query('query') query: QueryUserPaginatedDto,
     ): Promise<User[]> {	
@@ -26,8 +27,14 @@ export class UserController {
     }
 
     @Get(':id')
-    async findOne(@Param('id') id: number): Promise<User> {
-        const existingUser: User = await this.userService.findOne(id);
+    async findById(@Param('id') id: number): Promise<User> {
+        const existingUser: User = await this.userService.findById(id);
+        return existingUser;
+    }
+
+    @Get(':username')    
+    async findByUsername(@Param('username') username: string): Promise<User> {
+        const existingUser: User = await this.userService.findByUsername(username);
         return existingUser;
     }
 

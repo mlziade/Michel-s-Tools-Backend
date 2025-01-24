@@ -14,6 +14,7 @@ import { UserController } from './controllers/user.controller';
 import { UserModule } from './modules/user.module';
 import { GalleryImage } from './entities/image.entity';
 import { GalleryThumbnail } from './entities/thumbnail.entity';
+import { AuthModule } from './modules/auth.module';
 
 @Module({
   imports: [
@@ -38,12 +39,14 @@ import { GalleryThumbnail } from './entities/thumbnail.entity';
     AwsS3Module,
     GalleryModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [
     AppController,
+
   ],
   providers: [
-    AppService
+    AppService,
   ],
 })
 export class AppModule {}

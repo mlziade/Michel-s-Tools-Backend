@@ -19,7 +19,7 @@ import { GalleryThumbnail } from 'src/entities/thumbnail.entity';
         GalleryService,
     ],
     controllers: [
-        GalleryController,
+        // GalleryController,
     ],
     exports: [
         GalleryService,

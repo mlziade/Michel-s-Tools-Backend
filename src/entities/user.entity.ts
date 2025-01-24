@@ -22,4 +22,7 @@ export class User {
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
     updatedAd: Date;
+
+    @Column({ type: 'varchar', length: 100 })
+    password: string;
 }

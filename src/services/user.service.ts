@@ -2,6 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
+import * as bcrypt from 'bcrypt';
 import { CreateUserContractRequest } from 'src/contracts/requests/user.contract.request';
 
 @Injectable()
@@ -11,8 +12,17 @@ export class UserService {
         private readonly userRepository: Repository<User>,
     ) { }
 
-    async findOne(id: number): Promise<User> {
+    async findById(id: number): Promise<User> {
         const existingUser: User | null = await this.userRepository.findOne({ where: { id } });
+        if (!existingUser) {
+            throw new NotFoundException('User not found');
+        }
+
+        return existingUser;
+    }
+
+    async findByUsername(username: string): Promise<User> {
+        const existingUser: User | null = await this.userRepository.findOne({ where: { username } });
         if (!existingUser) {
             throw new NotFoundException('User not found');
         }
@@ -40,12 +50,15 @@ export class UserService {
             throw new ConflictException('User already exists');
         }
 
+        const hashedPassword = await this.hashPassword(createDto.password);
+
         const date = new Date();
         const newUser: User = await this.userRepository.save({
             ...createDto,
             isActive: true,
             createdAd: date,
             updatedAd: date,
+            password: hashedPassword,
         } as User);
 
         return newUser;
@@ -76,4 +89,9 @@ export class UserService {
 
         return existingUser;
     }
+
+    async hashPassword(password: string): Promise<string> {
+        const salt = await bcrypt.genSalt();
+        return bcrypt.hash(password, salt);
+      }
 }
