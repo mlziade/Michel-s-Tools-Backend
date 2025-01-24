@@ -43,7 +43,6 @@ import { AuthModule } from './modules/auth.module';
   ],
   controllers: [
     AppController,
-
   ],
   providers: [
     AppService,
