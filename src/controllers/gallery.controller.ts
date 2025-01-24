@@ -1,11 +1,13 @@
 import { GalleryService } from "src/services/gallery.service";
-import { BadRequestException, Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, Post, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ApiKeyGuard } from "src/guards/apikey.guard";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { GalleryUploadValidationPipe } from "src/pipes/gallery.pipes";
+import { AuthGuard } from "@nestjs/passport";
+import { GalleryResponseDto } from "src/contracts/response/gallery.contract.response";
 
 @Controller('gallery')
-@UseGuards(ApiKeyGuard)
+@UseGuards(AuthGuard('jwt'))
 export class GalleryController {
     constructor(
         private readonly galleryService: GalleryService,
@@ -22,5 +24,17 @@ export class GalleryController {
         }
 
         return await this.galleryService.uploadImage(fileInfo.fileName, fileInfo.description, file);
+    }
+
+    @Get(':id')
+    async findImageById(
+        @Param('id') id: number,
+        @Query('presigned') presigned: boolean,
+    ): Promise<GalleryResponseDto> {
+        if (!id) {
+            throw new BadRequestException('Image ID is required');
+        }
+
+        return await this.galleryService.findImageById(id, presigned);
     }
 }
