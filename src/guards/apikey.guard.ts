@@ -8,10 +8,7 @@ import { Injectable, CanActivate, ExecutionContext, ForbiddenException, Unauthor
  * a ForbiddenException is thrown.
  */
 @Injectable()
-export class AuthGuard implements CanActivate {
-
-    constructor(
-    ) {}
+export class ApiKeyGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();

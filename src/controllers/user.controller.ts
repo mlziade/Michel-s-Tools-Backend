@@ -2,11 +2,11 @@ import { Controller, Get, Post, Put, Delete, UseGuards, Body, Param, Query } fro
 import { CreateUserContractRequest, UpdateUserContractRequest } from 'src/contracts/requests/user.contract.request';
 import { QueryUserPaginatedDto } from 'src/contracts/response/user.contract.response';
 import { User } from 'src/entities/user.entity';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { ApiKeyGuard } from 'src/guards/apikey.guard';
 import { UserService } from 'src/services/user.service';
 
 @Controller('user')
-@UseGuards(AuthGuard)
+@UseGuards(ApiKeyGuard)
 export class UserController {
     constructor(
         private readonly userService: UserService,

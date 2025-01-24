@@ -12,7 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { UserController } from './controllers/user.controller';
 import { UserModule } from './modules/user.module';
-import { GalleryImage } from './entities/gallery.image.entity';
+import { GalleryImage } from './entities/image.entity';
 import { GalleryThumbnail } from './entities/thumbnail.entity';
 
 @Module({

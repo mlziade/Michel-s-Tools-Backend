@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AwsS3Service } from './aws.s3.service';
 import * as crypto from 'crypto';
-import { GalleryImage } from 'src/entities/gallery.image.entity';
+import { GalleryImage } from 'src/entities/image.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GalleryThumbnail } from 'src/entities/thumbnail.entity';

@@ -12,10 +12,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FileConversionService } from '../services/file.conversion.service';
 import { FileConversionFormat } from '../contracts/requests/file.conversion.contract.request';
 import { FileConversionFileValidationPipe, FileConversionOutputFormatValidationPipe, FileConversionQualityValidationPipe } from '../pipes/file.conversion.pipes';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { ApiKeyGuard } from 'src/guards/apikey.guard';
 
 @Controller('file-conversion')
-@UseGuards(AuthGuard)
+@UseGuards(ApiKeyGuard)
 export class FileConversionController {
 
     constructor(

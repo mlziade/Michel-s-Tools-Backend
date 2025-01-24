@@ -2,10 +2,10 @@ import { Controller, Post, Get, UploadedFile, UseInterceptors, Res, Param, UseGu
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AwsS3Service } from '../services/aws.s3.service';
 import { Response } from 'express';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { ApiKeyGuard } from 'src/guards/apikey.guard';
 
 @Controller('aws-s3')
-@UseGuards(AuthGuard)
+@UseGuards(ApiKeyGuard)
 export class AwsS3Controller {
   constructor(private readonly awsS3Service: AwsS3Service) {}
 

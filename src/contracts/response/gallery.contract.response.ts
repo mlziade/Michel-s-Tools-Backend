@@ -1,4 +1,4 @@
-import { GalleryImage } from "src/entities/gallery.image.entity";
+import { GalleryImage } from "src/entities/image.entity";
 import { GalleryThumbnail } from "src/entities/thumbnail.entity";
 
 export class GalleryResponseDto {

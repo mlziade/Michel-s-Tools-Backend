@@ -1,11 +1,11 @@
 import { GalleryService } from "src/services/gallery.service";
 import { BadRequestException, Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
-import { AuthGuard } from "src/guards/auth.guard";
+import { ApiKeyGuard } from "src/guards/apikey.guard";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { GalleryUploadValidationPipe } from "src/pipes/gallery.pipes";
 
 @Controller('gallery')
-@UseGuards(AuthGuard)
+@UseGuards(ApiKeyGuard)
 export class GalleryController {
     constructor(
         private readonly galleryService: GalleryService,

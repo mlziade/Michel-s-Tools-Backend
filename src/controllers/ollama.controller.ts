@@ -2,10 +2,10 @@ import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { OllamaGenerateRequestDto } from 'src/contracts/requests/ollama.contract.request';
 import { OllamaService } from 'src/services/ollama.service';
 import { Response } from 'express';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { ApiKeyGuard } from 'src/guards/apikey.guard';
 
 @Controller('ollama')
-@UseGuards(AuthGuard)
+@UseGuards(ApiKeyGuard)
 export class OllamaController {
   constructor(
     private readonly ollamaService: OllamaService,

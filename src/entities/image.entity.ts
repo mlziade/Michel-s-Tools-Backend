@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, JoinColumn, OneToOne } from 'typeorm';
-import { UUID } from "crypto";
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, JoinColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm';
 import { GalleryThumbnail } from './thumbnail.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class GalleryImage {
@@ -30,6 +30,9 @@ export class GalleryImage {
 
     @Column({ type: 'text', nullable: false })
     objectUrl: string;
+
+    @ManyToOne(() => User)
+    createdBy: User;
 
     @OneToOne(() => GalleryThumbnail)
     @JoinColumn()
