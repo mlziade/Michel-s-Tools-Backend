@@ -1,4 +1,5 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export enum FileConversionFormat {
   jpeg = 'image/jpeg',
@@ -7,14 +8,17 @@ export enum FileConversionFormat {
 }
 
 export class FileConversionRequestDto {
+  @ApiProperty({ enum: FileConversionFormat })
   @IsNotEmpty()
   @IsEnum(FileConversionFormat)
   format: string;
 
+  @ApiProperty({ enum: FileConversionFormat })
   @IsNotEmpty()
   @IsEnum(FileConversionFormat)
   outputFormat: string;
 
+  @ApiPropertyOptional({ minimum: 1, maximum: 100 })
   @IsOptional()
   @IsNumber()
   @Min(1)
