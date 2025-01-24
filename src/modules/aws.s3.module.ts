@@ -7,7 +7,7 @@ import { AwsS3Service } from 'src/services/aws.s3.service';
     AwsS3Service,
   ],
   controllers: [
-    AwsS3Controller,
+    // AwsS3Controller,
   ],
   exports: [
     AwsS3Service,
