@@ -4,6 +4,10 @@ import axios from 'axios';
 export const OllamaModels = [];
 export type OllamaModels = typeof OllamaModels[number];
 
+/* 
+* Ollama API ocumentation:
+* https://github.com/ollama/ollama/blob/main/docs/api.md
+*/
 @Injectable()
 export class OllamaService {
     constructor() { }
