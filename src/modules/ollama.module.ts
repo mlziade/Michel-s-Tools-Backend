@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { OllamaController } from 'src/controllers/ollama.controller';
-import { OllamaService } from 'src/services/ollama.service';
+import { OllamaModels, OllamaService } from 'src/services/ollama.service';
 
 @Module({
   providers: [
@@ -10,7 +10,7 @@ import { OllamaService } from 'src/services/ollama.service';
     OllamaController,
   ],
   exports: [
-    // OllamaService,
+    OllamaService,
   ]
 })
 export class OllamaModule {}

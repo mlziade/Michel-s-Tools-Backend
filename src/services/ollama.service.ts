@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import axios from 'axios';
 
-export type OllamaModels = "llama3.2:1b" | "phi3"
+export const OllamaModels = [];
+export type OllamaModels = typeof OllamaModels[number];
 
 @Injectable()
 export class OllamaService {
-    constructor() {}
+    constructor() { }
 
     /* 
     * Generate text using Ollama API
@@ -32,7 +33,11 @@ export class OllamaService {
             return generatedText;
         } catch (error) {
             console.error("🚀 ~ OllamaService ~ getOllama ~ error:", error);
-            throw new Error('Error in OllamaService');
+            if (error.response.includes(`model '${model}' not found`)) {
+                throw new NotFoundException(`Model '${model}' is not available`);
+            } else {
+                throw new InternalServerErrorException('Error in Infering on Ollama API');
+            }
         }
     }
 
@@ -62,7 +67,34 @@ export class OllamaService {
             return response.data;
         } catch (error) {
             console.error("🚀 ~ OllamaService ~ streamText ~ error:", error);
-            throw new Error('Error in OllamaService');
+            if (error.response.includes(`model '${model}' not found`)) {
+                throw new NotFoundException(`Model '${model}' is not available`);
+            } else {
+                throw new InternalServerErrorException('Error in streaming inference on Ollama API');
+            }
+        }
+    }
+
+    /*
+    * List available models using Ollama API
+    * Docs: https://github.com/ollama/ollama/blob/main/docs/api.md#list-local-models
+    */
+    async listModels(): Promise<string[]> {
+        const baseUrl = process.env.OLLAMA_URL;
+        if (!baseUrl) {
+            throw new Error('OLLAMA_URL is not defined');
+        }
+
+        const finalUrl = `${baseUrl}/api/tags`;
+
+        try {
+            const response = await axios.get(finalUrl);
+            const availableModelsNames = response.data.models.map((model) => model.name);
+
+            return availableModelsNames;
+        } catch (error) {
+            console.error("🚀 ~ OllamaService ~ listModels ~ error:", error);
+            throw new InternalServerErrorException('Error in listing models on Ollama API');
         }
     }
 }
