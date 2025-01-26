@@ -28,6 +28,7 @@ export class GalleryResponseDto {
     @ApiProperty({
         description: 'Thumbnail details',
         type: 'object',
+        additionalProperties: true,
         example: {
             id: 2,
             fileName: 'thumbnail.jpg',

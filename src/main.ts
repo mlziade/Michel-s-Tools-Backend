@@ -9,7 +9,7 @@ async function bootstrap() {
     .setTitle("Michel's Tools Backend API")
     .setDescription("Michel's Tools Backend API")
     .setVersion('1.0')
-    .addTag()
+    // .addTag()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
