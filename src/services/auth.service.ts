@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from 'src/entities/user.entity';
 import { UserService } from './user.service';
 import { LoginResponseDto } from 'src/contracts/response/auth.contract.response';
+import { ReducedUserResponseDto } from 'src/contracts/response/user.contract.response';
 
 @Injectable()
 export class AuthService {
@@ -39,5 +40,25 @@ export class AuthService {
             access_token: this.jwtService.sign(payload),
             expires_in: 3600,
         } as LoginResponseDto;
+    }
+
+    /* 
+    * This method extracts user information from a JWT token
+    * Returns the decoded token payload containing username and user ID
+    */
+    async getUserFromToken(token: string): Promise<ReducedUserResponseDto> {
+        if (token.includes('Bearer ')) {
+            token = token.split(' ')[1];
+        }
+        
+        try {
+            const payload = await this.jwtService.verify(token);
+            return {
+                id: payload.sub,
+                username: payload.username,
+            } as ReducedUserResponseDto;
+        } catch (error) {
+            throw new UnauthorizedException('Invalid token');
+        }
     }
 }
