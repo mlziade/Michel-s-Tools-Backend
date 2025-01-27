@@ -5,6 +5,7 @@ import { AwsS3Module } from './aws.s3.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GalleryImage } from 'src/entities/image.entity';
 import { GalleryThumbnail } from 'src/entities/thumbnail.entity';
+import { AuthModule } from './auth.module';
 
 
 @Module({
@@ -14,6 +15,7 @@ import { GalleryThumbnail } from 'src/entities/thumbnail.entity';
             GalleryThumbnail,
         ]),
         AwsS3Module,
+        AuthModule,
     ],
     providers: [
         GalleryService,

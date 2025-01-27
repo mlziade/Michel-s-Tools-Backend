@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { GalleryImage } from "src/entities/image.entity";
 import { GalleryThumbnail } from "src/entities/thumbnail.entity";
+import { User } from "src/entities/user.entity";
 
 export class GalleryResponseDto {
     constructor(partial: Partial<GalleryResponseDto>) {
@@ -24,6 +25,14 @@ export class GalleryResponseDto {
 
     @ApiProperty({ description: 'Presigned URL for accessing the image', required: false, example: 'https://example.com/presigned-url' })
     presignedUrl?: string;
+
+    @ApiProperty({ 
+        description: 'User who created the image', 
+        type: 'object', 
+        additionalProperties: true, 
+        example: { id: 1, username: 'user1' } 
+    })
+    createdBy: User;
 
     @ApiProperty({
         description: 'Thumbnail details',

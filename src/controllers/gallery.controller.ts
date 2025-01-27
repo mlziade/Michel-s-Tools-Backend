@@ -37,4 +37,12 @@ export class GalleryController {
 
         return await this.galleryService.findImageById(id, presigned);
     }
+
+    @Get()
+    async findImagesPaginated(
+        @Query('page') page: number,
+        @Query('limit') limit: number,
+    ): Promise<GalleryResponseDto[]> {
+        return await this.galleryService.findImagesPaginated(page, limit);
+    }
 }
