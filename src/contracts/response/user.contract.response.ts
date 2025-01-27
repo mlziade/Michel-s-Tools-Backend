@@ -20,3 +20,12 @@ export class UserResponseDto {
         })
     }
 }
+
+export class ReducedUserResponseDto {
+    constructor(partial: Partial<ReducedUserResponseDto>) {
+        Object.assign(this, partial);
+    }
+
+    id: number;
+    username: string;
+}
