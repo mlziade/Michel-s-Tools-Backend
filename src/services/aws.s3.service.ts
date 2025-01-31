@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command, StorageClass } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command, StorageClass, CreateBucketCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Buffer } from 'buffer';
 import { AwsS3PresignedUrlResponseDto } from 'src/contracts/response/s3.contract.response';
@@ -16,6 +16,18 @@ export class AwsS3Service {
             },
             region: process.env.AWS_REGION
         });
+    }
+
+    async createBucket(bucketName: string): Promise<void> {
+        const command = new CreateBucketCommand({
+            Bucket: bucketName,
+        });
+
+        try {
+            await this.s3Client.send(command);
+        } catch (error) {
+            throw new Error("Error creating bucket in S3");
+        }
     }
 
     async uploadFile(fileFullPath: string, bucketName: string, file: Express.Multer.File | Buffer, storageClass: StorageClass = 'STANDARD'): Promise<void> {
