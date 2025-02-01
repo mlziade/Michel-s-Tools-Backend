@@ -11,6 +11,7 @@ available_languages = {
     "pt"       # Portuguese (Including Brazilian Portuguese)
 }
 
+# Loads the models globally once into memory [ref: https://github.com/JaidedAI/EasyOCR?tab=readme-ov-file#usage]
 reader = easyocr.Reader(available_languages)
 
 def ocr_image(image_bytes: bytes) -> str:
