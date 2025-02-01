@@ -19,4 +19,16 @@ export class EasyOcrController {
             language as EasyOcrAvailableLanguages
         );
     }
+
+    @Post('extractTextFromPdf')
+    @UseInterceptors(FileInterceptor('pdf'))
+    async extractTextFromPdf(
+        @Query('language') language: string,
+        @UploadedFile() pdf: Express.Multer.File,
+    ) {
+        return this.easyOcrService.extractTextFromPdf(
+            pdf, 
+            language as EasyOcrAvailableLanguages
+        );
+    }
 }
