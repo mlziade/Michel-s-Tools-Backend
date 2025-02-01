@@ -13,6 +13,7 @@ import { UserModule } from './modules/user.module';
 import { GalleryImage } from './entities/image.entity';
 import { GalleryThumbnail } from './entities/thumbnail.entity';
 import { AuthModule } from './modules/auth.module';
+import { EasyOcrModule } from './modules/easyocr.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { AuthModule } from './modules/auth.module';
     GalleryModule,
     UserModule,
     AuthModule,
+    EasyOcrModule,
   ],
   controllers: [
     AppController,
