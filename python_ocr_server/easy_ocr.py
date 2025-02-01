@@ -24,7 +24,12 @@ def ocr_image(image_bytes: bytes) -> str:
     Returns:
         str: The OCR result in JSON format.
     """
-    results = reader.readtext(image_bytes)
+    results = reader.readtext(
+        image = image_bytes,
+        # Increase the contrast threshold to reduce false positives by running the model twice when contrast in a bouning box is lower
+        # May increase the processing time for less contrasted images
+        contrast_ths = 0.1, 
+    )
     text_array = [res[1] for res in results]
     return json.dumps({"result": text_array})
 
@@ -53,11 +58,16 @@ def ocr_pdf(pdf_bytes: bytes, language: str) -> str:
     number_of_pages = pdf_file.page_count
     for page_number in range(number_of_pages):
         page = pdf_file[page_number]
+        # Transform the PDF page into an png image
         pix = page.get_pixmap()
         image_bytes = pix.tobytes("png")
 
-        # Recognize text using EasyOCR
-        result = reader.readtext(image_bytes)
+        result = reader.readtext(
+            image = image_bytes,
+            # Increase the contrast threshold to reduce false positives by running the model twice when contrast in a bouning box is lower
+            # May increase the processing time for less contrasted images
+            contrast_ths = 0.1, 
+        )
         text_array = [res[1] for res in result]
         result_per_page.append(text_array)    
     
